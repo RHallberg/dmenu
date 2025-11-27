@@ -683,7 +683,6 @@ setup(void)
 			y = info[i].y_org + (topbar ? 0 : info[i].height - mh);
 			mw = info[i].width;
 		}
-
 		XFree(info);
 	} else
 #endif
@@ -691,7 +690,6 @@ setup(void)
 		if (!XGetWindowAttributes(dpy, parentwin, &wa))
 			die("could not get embedding window attributes: 0x%lx",
 			    parentwin);
-
 		if (centered) {
 			mw = MIN(MAX(max_textw() + promptw, min_width), wa.width);
 			x = (wa.width  - mw) / 2;
@@ -702,7 +700,6 @@ setup(void)
 			mw = wa.width;
 		}
 	}
-	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
 	inputw = mw / 3; /* input width: ~33% of monitor width */
 	match();
 
