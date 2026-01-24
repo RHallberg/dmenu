@@ -112,6 +112,8 @@ calcoffsets(void)
 static int
 max_textw(void)
 {
+  // Hack to fix undefined behavior when using -C option
+  if(qalc.enable)return 100;
 	int len = 0;
 	for (struct item *item = items; item && item->text; item++)
 		len = MAX(item->width, len);
