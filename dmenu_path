@@ -7,7 +7,17 @@ cache="$cachedir/dmenu_run"
 
 IFS=:
 if stest -dqr -n "$cache" $PATH; then
-	stest -flx $PATH | sort -u | tee "$cache"
+	stest -flx $PATH | sort -u > "$cache"
+  while read -r program; do
+      desc=$(whatis "$program" 2>/dev/null |
+        head -n1 |
+        awk '{$1=$2=$3=$4="";print $0}' |
+        sed -E 's/^ +//')
+    [ -n "$desc" ] && desc=" -- $desc"
+    printf "%s%s\n" "$program" "$desc" >> "$tmp"
+  done < "$cache"
+  cat "$tmp" > "$cache"
+  rm "$tmp"
 else
 	cat "$cache"
 fi
